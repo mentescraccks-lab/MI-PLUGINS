@@ -2,9 +2,6 @@ name: Build AndresBeats Clip (VST3)
 
 on:
   push:
-    paths:
-      - 'GoldClip/**'
-      - '.github/workflows/goldclip.yml'
   workflow_dispatch:
 
 jobs:
@@ -18,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Configurar
-        run: cmake -S GoldClip -B build -DCMAKE_BUILD_TYPE=Release "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
 
       - name: Compilar
         run: cmake --build build --config Release --parallel
