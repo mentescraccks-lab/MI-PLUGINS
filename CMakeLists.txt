@@ -26,12 +26,12 @@ juce_add_plugin(AndresBeatsClip
     VST3_CATEGORIES Fx Dynamics)
 
 target_sources(AndresBeatsClip PRIVATE
-    Source/PluginProcessor.cpp
-    Source/PluginProcessor.h
-    Source/PluginEditor.cpp
-    Source/PluginEditor.h
-    Source/GoldLookAndFeel.h
-    Source/UiComponents.h)
+    PluginProcessor.cpp
+    PluginProcessor.h
+    PluginEditor.cpp
+    PluginEditor.h
+    GoldLookAndFeel.h
+    UiComponents.h)
 
 target_compile_definitions(AndresBeatsClip PUBLIC
     JUCE_WEB_BROWSER=0
