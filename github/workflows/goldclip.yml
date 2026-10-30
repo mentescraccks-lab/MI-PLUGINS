@@ -2,23 +2,22 @@ name: Build AndresBeats Clip (VST3)
 
 on:
   push:
-    paths:
-      - 'GoldClip/**'
-      - '.github/workflows/goldclip.yml'
   workflow_dispatch:
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache JUCE
+        uses: actions/cache@v4
+        with:
+          path: build/_deps
+          key: juce-8.0.4-${{ runner.os }}
+
       - name: Configurar
-        run: cmake -S GoldClip -B build -DCMAKE_BUILD_TYPE=Release "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
       - name: Compilar
         run: cmake --build build --config Release --parallel
@@ -26,5 +25,5 @@ jobs:
       - name: Subir VST3
         uses: actions/upload-artifact@v4
         with:
-          name: AndresBeatsClip-VST3-${{ matrix.os }}
+          name: AndresBeatsClip-VST3-Windows
           path: build/AndresBeatsClip_artefacts/Release/VST3/
